@@ -15,17 +15,21 @@ extern char **environ;
  *
  * Return: None
  */
-void execute_cmd(const char *command) {
-    pid_t kid_pid = fork();
-
-    if (kid_pid == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    } else if (kid_pid == 0) {
-        execve(command, (char *const *)command, environ);
-        perror("execve");
-        exit(EXIT_FAILURE);
-    } else {
-        wait(NULL);
-    }
+void execute_cmd(const char *command)
+{
+pid_t kid_pid = fork();
+if (kid_pid == -1) {
+perror("fork");
+exit(EXIT_FAILURE);
+}
+else if (kid_pid == 0)
+{
+execve(command, (char *const *)command, environ);
+perror("execve");
+exit(EXIT_FAILURE);
+}
+else
+{
+wait(NULL);
+}
 }
