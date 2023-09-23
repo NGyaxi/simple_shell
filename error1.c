@@ -45,7 +45,7 @@ char *strcat_cd(data_shell *datash, char *msg, char *error, char *ver_str)
  *
  * Return: Error message
  */
-char *error_for_exit(data_shell *datash)
+char *error_exit_shell(data_shell *datash)
 {
 	int lent;
 	char *error;
