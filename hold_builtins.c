@@ -13,12 +13,12 @@ int hold_builtin(char **commands, char *line)
 
 	if (_strcmp(*commands, builtin.env) == 0)
 	{
-		print_env();
+		print_environ();
 		return (1);
 	}
 	else if (_strcmp(*commands, builtin.exit) == 0)
 	{
-		exit_cmd(commands, line);
+		kill_cmd(commands, line);
 		return (1);
 	}
 	return (0);

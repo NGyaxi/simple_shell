@@ -7,11 +7,11 @@
  */
 int inspector(char **mycmd, char *bufs)
 {
-	if (handle_builtin(mycmd, bufs))
+	if (hold_builtin(mycmd, bufs))
 		return (1);
 	else if (**mycmd == '/')
 	{
-		execution(mycmd[0], mycmd);
+		my_execution(mycmd[0], mycmd);
 		return (1);
 	}
 	return (0);

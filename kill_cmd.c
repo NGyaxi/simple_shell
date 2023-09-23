@@ -10,6 +10,6 @@
 void kill_cmd(char **commands, char *line)
 {
 	free(line);
-	free_buffers(commands);
+	leave_buffers(commands);
 	exit(0);
 }

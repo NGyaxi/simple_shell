@@ -17,13 +17,13 @@ int main(int ac, char **av, char *envp[])
 	(void)envp, (void)av;
 	if (ac < 1)
 		return (-1);
-	signal(SIGINT, handle_signal);
+	signal(SIGINT, hold_signal);
 	while (1)
 	{
-		free_buffers(command);
-		free_buffers(paths);
+		leave_buffers(command);
+		leave_buffers(paths);
 		free(pathcommand);
-		prompt_user();
+		promptUser();
 		linesize = getline(&line, &bufsize, stdin);
 		if (linesize < 0)
 			break;
@@ -33,15 +33,15 @@ int main(int ac, char **av, char *envp[])
 		command = tokenizer(line);
 		if (command == NULL || *command == NULL || **command == '\0')
 			continue;
-		if (checker(command, line))
+		if (inspector(command, line))
 			continue;
-		path = find_path();
+		path = detect_path();
 		paths = tokenizer(path);
 		pathcommand = test_path(paths, command[0]);
 		if (!pathcommand)
 			perror(av[0]);
 		else
-			execution(pathcommand, command);
+			my_execution(pathcommand, command);
 	}
 	if (linesize < 0 && flags.interactive)
 		write(STDERR_FILENO, "\n", 1);

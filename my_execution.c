@@ -20,7 +20,7 @@ void my_execution(char *cp, char **my_cmd)
 		execve(cp, my_cmd, env);
 		perror(cp);
 		free(cp);
-		free_buffers(my_cmd);
+		leave_buffers(my_cmd);
 		exit(98);
 	}
 	else
