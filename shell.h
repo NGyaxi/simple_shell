@@ -1,39 +1,61 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <errno.h>
+#include <time.h>
+#include <stdbool.h>
 
-/**
- * show_prompt - Displays the shell prompt.
- */
-void show_prompt(void);
+/* environment variables */
+extern char **environ;
+extern __sighandler_t signal(int __sig, __sighandler_t __handler);
 
-/**
- * gyasi_debPrint - Writes a message to standard output.
- * @msg: The message to write.
- */
-void gyasi_debPrint(const char *msg);
+/* handle built ins */
+int inspector(char **mycmd, char *bufs);
+void promptUser(void);
+void hold_signal(int m);
+char **tokenizer(char *line);
+char *test_path(char **path, char *command);
+char *include_path(char *pathx, char *commands);
+int hold_builtin(char **commands, char *line);
+void kill_cmd(char **commands, char *line);
 
-/**
- * read_input - Reads input from the user.
- * @command: A pointer to a character array to store the input.
- * @size: The maximum size of the input.
- */
-void read_input(char *command, size_t size);
+void print_environ(void);
 
-/**
- * execute_cmd - Executes a command.
- * @command: The command to execute.
- */
-void execute_cmd(char *command);
+/* string handlers */
+int _strcmp(char *s1, char *s2);
+int _strlen(char *s);
+int _strncmp(char *s1, char *s2, int n);
+char *_strdup(char *s);
+char *_strchr(char *s, char c);
+
+void my_execution(char *cp, char **my_cmd);
+char *detect_path(void);
+
+/* helper function for efficient free */
+void leave_buffers(char **buf);
+
+struct builtin
+{
+	char *env;
+	char *exit;
+} builtin;
+
+struct info
+{
+	int final_exit;
+	int ln_count;
+} info;
+
+struct flags
+{
+	bool interactive;
+} flags;
 
 #endif /* SHELL_H */
